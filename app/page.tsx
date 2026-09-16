@@ -1,16 +1,26 @@
 import Link from "next/link";
 
-const caseStudies = [
+type StudyKey = "correlation" | "schedule" | "coverage";
+
+const caseStudies: Array<{
+  href: string;
+  label: string;
+  type: string;
+  title: string;
+  insight: string;
+  businessQuestion: string;
+  validation: string;
+  graphic: StudyKey;
+}> = [
   {
     href: "/industrial-screening",
     label: "Study 01",
     type: "Coupled system",
     title: "Compressed-air system: Compressor A + Compressor B",
-    insight: "A single compressor dropping near zero does not prove a system saving.",
-    metric: "-0.767",
-    metricLabel: "approx. demand correlation",
+    insight: "Compressor A and B move in opposite directions often enough that one meter cannot be read alone.",
     businessQuestion: "Is duty transferring between machines before anyone claims an efficiency win?",
     validation: "Pressure, airflow, states, controls, service constraints",
+    graphic: "correlation",
   },
   {
     href: "/extraction-screening",
@@ -18,10 +28,9 @@ const caseStudies = [
     type: "Schedule shape",
     title: "Industrial extraction asset A",
     insight: "The strongest signal is when the asset runs, not a standalone claim of waste.",
-    metric: "5.411 kW",
-    metricLabel: "daytime mean vs 0.219 kW overnight",
     businessQuestion: "Is the operating schedule aligned with the service the asset provides?",
     validation: "Extraction requirement, controls, meter boundary, operating schedule",
+    graphic: "schedule",
   },
   {
     href: "/material-handling-screening",
@@ -29,38 +38,110 @@ const caseStudies = [
     type: "Context test",
     title: "Material-handling asset A",
     insight: "More history improves the screen, but it does not replace machine knowledge.",
-    metric: "35,104",
-    metricLabel: "expected quarter-hour intervals",
     businessQuestion: "Does a longer history change the priority for engineer review?",
     validation: "Machine role, production relationship, controls, maintenance context",
+    graphic: "coverage",
   },
 ];
 
-const operatingBoundaries = [
-  ["System relationship", "Compressor A + B", "Asset interaction changes the reading"],
-  ["Operating schedule", "Extraction asset A", "Time pattern focuses the review"],
-  ["Equipment context", "Material-handling asset A", "History still needs site knowledge"],
-];
+function EvidenceGraphic({ type }: { type: StudyKey }) {
+  if (type === "correlation") {
+    return (
+      <div className="mt-5 border-t border-neutral-200 pt-5">
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-3xl font-semibold tabular-nums text-brand-primary">-0.767</p>
+            <p className="mt-1 text-xs leading-5 text-brand-muted">approx. demand correlation</p>
+          </div>
+          <p className="max-w-[9rem] text-right text-xs leading-5 text-brand-muted">
+            Close to opposite movement, not proof of control logic.
+          </p>
+        </div>
+        <div className="relative mt-6 h-2 bg-neutral-200">
+          <div className="absolute left-0 top-0 h-2 w-1/2 bg-slate-700" />
+          <div className="absolute top-[-0.45rem] h-5 w-1 border-l-2 border-blue-700" style={{ left: "11.65%" }} />
+        </div>
+        <div className="mt-2 grid grid-cols-3 text-xs text-brand-muted">
+          <span>-1 opposite</span>
+          <span className="text-center">0 no linear association</span>
+          <span className="text-right">+1 move together</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "schedule") {
+    return (
+      <div className="mt-5 border-t border-neutral-200 pt-5">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-3xl font-semibold tabular-nums text-brand-primary">5.411 kW</p>
+            <p className="mt-1 text-xs leading-5 text-brand-muted">daytime mean demand</p>
+          </div>
+          <div className="text-right">
+            <p className="text-xl font-semibold tabular-nums text-brand-primary">0.219 kW</p>
+            <p className="mt-1 text-xs leading-5 text-brand-muted">overnight mean</p>
+          </div>
+        </div>
+        <div className="mt-5 grid gap-2">
+          <div>
+            <div className="flex justify-between text-xs text-brand-muted"><span>Daytime</span><span>5.411 kW</span></div>
+            <div className="mt-1 h-2 bg-neutral-200"><div className="h-2 bg-blue-700" style={{ width: "100%" }} /></div>
+          </div>
+          <div>
+            <div className="flex justify-between text-xs text-brand-muted"><span>Overnight</span><span>0.219 kW</span></div>
+            <div className="mt-1 h-2 bg-neutral-200"><div className="h-2 bg-slate-700" style={{ width: "4.1%" }} /></div>
+          </div>
+        </div>
+        <p className="mt-3 text-xs leading-5 text-brand-muted">
+          The gap prioritises schedule review. It does not prove the daytime load is avoidable.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-5 border-t border-neutral-200 pt-5">
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <p className="text-3xl font-semibold tabular-nums text-brand-primary">98.351%</p>
+          <p className="mt-1 text-xs leading-5 text-brand-muted">recorded-span coverage</p>
+        </div>
+        <div className="text-right">
+          <p className="text-xl font-semibold tabular-nums text-brand-primary">579</p>
+          <p className="mt-1 text-xs leading-5 text-brand-muted">missing intervals</p>
+        </div>
+      </div>
+      <div className="mt-5 h-3 bg-neutral-200">
+        <div className="h-3 bg-blue-700" style={{ width: "98.351%" }} />
+      </div>
+      <div className="mt-2 flex justify-between text-xs text-brand-muted">
+        <span>34,525 observed</span>
+        <span>35,104 expected</span>
+      </div>
+      <p className="mt-3 text-xs leading-5 text-brand-muted">
+        Strong coverage supports screening, but machine function still controls interpretation.
+      </p>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <main>
       <section className="border-b border-neutral-200 bg-neutral-950 text-white">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 md:px-6 md:py-20 lg:grid-cols-[1fr_0.9fr] lg:items-end">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:px-6 md:py-18 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-300">
-              Industrial software for efficiency work
-            </p>
-            <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight md:text-6xl">
-              Opcient
+            <h1 className="max-w-4xl text-4xl font-semibold tracking-tight md:text-6xl">
+              Find the operating pattern worth validating first.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-300">
-              We build software workflows that screen industrial operating data, explain the evidence,
-              and hand candidate efficiency opportunities to qualified engineers for validation.
+              Opcient builds software workflows that screen industrial operating data, explain the
+              evidence, and route candidate efficiency opportunities to qualified engineers.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link href="/case-studies" className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-neutral-950 hover:bg-blue-100">
-                View the evidence
+                View case evidence
               </Link>
               <Link href="/work-with-us" className="rounded-md border border-neutral-500 px-6 py-3 text-sm font-semibold text-white hover:border-blue-300 hover:text-blue-200">
                 Partner with us
@@ -69,77 +150,49 @@ export default function Home() {
           </div>
 
           <div className="border border-neutral-700 bg-neutral-900 p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-300">
-              Current method
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-300">Operating boundary</p>
+            <p className="mt-3 text-2xl font-semibold leading-8 text-white">
+              Evidence first. Engineering decision second. Savings claims last.
             </p>
-            <div className="mt-5 grid gap-4">
-              {[
-                ["01", "Screen", "Find operating patterns and keep missing data visible."],
-                ["02", "Explain", "Show source, quality, assumptions, limits, and comparisons."],
-                ["03", "Validate", "Route the evidence to engineers before action or savings claims."],
-              ].map(([number, title, text]) => (
-                <div key={title} className="grid grid-cols-[2.5rem_1fr] gap-4 border-t border-neutral-700 pt-4 first:border-t-0 first:pt-0">
-                  <p className="font-mono text-sm text-blue-300">{number}</p>
-                  <div>
-                    <h2 className="font-semibold text-white">{title}</h2>
-                    <p className="mt-1 text-sm leading-6 text-neutral-400">{text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p className="mt-4 text-sm leading-6 text-neutral-400">
+              The business value is disciplined prioritisation: showing what to investigate, what the
+              data does not prove, and what validation is needed before action.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-20">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+      <section className="mx-auto max-w-7xl px-4 py-14 md:px-6 md:py-18">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Cross-study insight</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-primary">
-              The value is not ranking meters. It is knowing which question deserves engineer time.
+              The same meter data can answer very different business questions.
             </h2>
-            <p className="mt-4 text-sm leading-6 text-brand-muted">
-              These public-data studies show three different business risks: treating an interacting
-              system as isolated assets, mistaking a schedule pattern for a proven saving, and assuming
-              a longer history explains the machine by itself.
-            </p>
           </div>
 
-          <div className="border border-neutral-200 bg-slate-50 p-5">
-            <div className="grid gap-3">
-              {operatingBoundaries.map(([boundary, asset, meaning], index) => (
-                <div key={boundary} className="grid gap-3 bg-white p-4 md:grid-cols-[11rem_1fr] md:items-center">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-blue-700">{boundary}</p>
-                    <p className="mt-1 text-sm font-semibold text-brand-primary">{asset}</p>
-                  </div>
-                  <div>
-                    <div className="h-2 bg-neutral-200">
-                      <div
-                        className={["h-full bg-blue-700", index === 0 ? "w-[86%]" : index === 1 ? "w-[68%]" : "w-[74%]"].join(" ")}
-                      />
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-brand-muted">{meaning}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="mt-4 text-xs leading-5 text-brand-muted">
-              The bars are communication markers for the kind of evidence each study contributes, not
-              a cross-asset performance score. Raw kW values are not comparable across unknown machine
-              functions and meter boundaries.
-            </p>
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              ["System risk", "Two assets can trade duty, so a local drop is not automatically a system improvement."],
+              ["Schedule risk", "A time-of-day pattern can focus review before anyone labels consumption waste."],
+              ["Context risk", "A long history still needs equipment purpose, output, and meter boundary."],
+            ].map(([title, text]) => (
+              <div key={title} className="border-l-4 border-blue-700 pl-4">
+                <h3 className="font-semibold text-brand-primary">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-brand-muted">{text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="border-y border-neutral-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-16 md:px-6">
+        <div className="mx-auto max-w-7xl px-4 py-14 md:px-6">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Case evidence</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-primary">
-                Three studies, three business lessons.
+                Three studies, three signals a business can understand quickly.
               </h2>
             </div>
             <Link href="/case-studies" className="text-sm font-semibold text-blue-700 hover:text-blue-900">
@@ -156,10 +209,7 @@ export default function Home() {
                 </div>
                 <h3 className="mt-4 text-xl font-semibold leading-7 text-brand-primary">{study.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-brand-muted">{study.insight}</p>
-                <div className="mt-5 border-t border-neutral-200 pt-4">
-                  <p className="text-3xl font-semibold tabular-nums text-brand-primary">{study.metric}</p>
-                  <p className="mt-1 text-xs leading-5 text-brand-muted">{study.metricLabel}</p>
-                </div>
+                <EvidenceGraphic type={study.graphic} />
                 <p className="mt-5 text-sm font-semibold leading-6 text-brand-primary">{study.businessQuestion}</p>
                 <p className="mt-3 text-xs leading-5 text-brand-muted">Validation needed: {study.validation}.</p>
                 <span className="mt-5 inline-block text-sm font-semibold text-blue-700 group-hover:text-blue-900">
@@ -171,7 +221,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-20">
+      <section className="mx-auto max-w-7xl px-4 py-14 md:px-6 md:py-18">
         <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr]">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">What Opcient brings</p>
