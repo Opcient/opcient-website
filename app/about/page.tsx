@@ -1,28 +1,29 @@
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8 md:px-6 md:py-12">
-      <h1 className="text-2xl font-semibold text-brand-primary md:text-3xl">About Sydney Movers</h1>
-
-      <p className="mt-4 max-w-3xl text-sm text-brand-muted md:text-base">
-        Sydney Movers is a Sydney-based commercial movers specialising in office relocations and SME
-        moves across NSW.
+    <main className="mx-auto max-w-5xl px-4 py-16 md:px-6 md:py-20">
+      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">About Opcient</p>
+      <h1 className="mt-4 text-4xl font-semibold tracking-tight text-brand-primary md:text-5xl">
+        Software capability for engineering businesses.
+      </h1>
+      <p className="mt-6 max-w-3xl text-lg leading-8 text-brand-muted">
+        Opcient builds software and data workflows that help industrial engineering teams screen
+        operational data, focus investigations, and document what is known before decisions are made.
       </p>
-
-      <p className="mt-4 max-w-3xl text-sm text-brand-muted md:text-base">
-        We focus on structured, contract-led relocations where clarity, insurance, and reliability
-        matter. Our services are designed for businesses that require predictable outcomes,
-        professional handling, and insured operations.
-      </p>
-
-      <div className="mt-8">
-        <h2 className="text-base font-medium text-brand-primary">What sets us apart</h2>
-
-        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-brand-muted">
-          <li>Commercial-first focus</li>
-          <li>Formal quotes and written contracts</li>
-          <li>Public liability and goods in transit insurance</li>
-          <li>Experienced handling of office environments</li>
-        </ul>
+      <div className="mt-12 grid gap-8 md:grid-cols-2">
+        <div className="rounded-lg border border-neutral-200 p-7">
+          <h2 className="text-xl font-semibold text-brand-primary">Our role</h2>
+          <p className="mt-3 text-sm leading-6 text-brand-muted">
+            We provide the software engineering, data handling, reproducibility, and workflow design.
+            We work alongside domain specialists who validate the operational meaning.
+          </p>
+        </div>
+        <div className="rounded-lg border border-neutral-200 p-7">
+          <h2 className="text-xl font-semibold text-brand-primary">Our boundary</h2>
+          <p className="mt-3 text-sm leading-6 text-brand-muted">
+            We do not replace plant engineers or claim savings from an unvalidated pattern. Findings
+            are candidate signals for qualified review.
+          </p>
+        </div>
       </div>
     </main>
   );
