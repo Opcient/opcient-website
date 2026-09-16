@@ -38,6 +38,9 @@ export default function IndustrialScreeningPage() {
         This is a technical demonstration using public data. Findings are exploratory and require
         site-specific validation before operational or financial decisions.
       </p>
+      <p className="mt-8 text-sm text-brand-muted">
+        Next comparison: <a className="font-semibold text-blue-700 hover:text-blue-900" href="/extraction-screening">screening an extraction asset →</a>
+      </p>
     </main>
   );
 }

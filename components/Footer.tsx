@@ -3,6 +3,7 @@ import Link from "next/link";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/how-it-works", label: "How It Works" },
+  { href: "/extraction-screening", label: "Case Studies" },
   { href: "/about", label: "About Opcient" },
   { href: "/work-with-us", label: "Work With Us" },
 ];
