@@ -6,10 +6,10 @@ import Link from "next/link";
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/extraction-screening", label: "Case Studies" },
-  { href: "/about", label: "About Opcient" },
-  { href: "/work-with-us", label: "Work With Us" },
+  { href: "/how-it-works", label: "Framework" },
+  { href: "/case-studies", label: "Case Studies" },
+  { href: "/work-with-us", label: "Partnerships" },
+  { href: "/about", label: "About" },
 ];
 
 export default function Header() {

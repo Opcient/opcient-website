@@ -8,6 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${baseUrl}/how-it-works`, priority: 0.7 },
 
+    { url: `${baseUrl}/case-studies`, priority: 0.9 },
+
     { url: `${baseUrl}/industrial-screening`, priority: 0.9 },
 
     { url: `${baseUrl}/extraction-screening`, priority: 0.8 },

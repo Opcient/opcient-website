@@ -2,10 +2,10 @@ import Link from "next/link";
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/extraction-screening", label: "Case Studies" },
-  { href: "/about", label: "About Opcient" },
-  { href: "/work-with-us", label: "Work With Us" },
+  { href: "/how-it-works", label: "Framework" },
+  { href: "/case-studies", label: "Case Studies" },
+  { href: "/work-with-us", label: "Partnerships" },
+  { href: "/about", label: "About" },
 ];
 
 export default function Footer() {
@@ -14,9 +14,8 @@ export default function Footer() {
       {/* Top footer content */}
       <div className="mx-auto max-w-7xl px-4 py-10 md:px-6">
         <div className="grid gap-10 text-sm md:grid-cols-2">
-          {/* Company */}
           <div>
-            <h3 className="mb-4 font-medium text-brand-primary">Company</h3>
+            <h3 className="mb-4 font-medium text-brand-primary">Opcient</h3>
             <ul className="space-y-2">
               {navItems.map((item) => (
                 <li key={item.href}>
@@ -25,22 +24,9 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-
-              <li>
-                <Link href="/how-it-works" className="text-brand-muted hover:text-brand-primary">
-                  How Our Process Works
-                </Link>
-              </li>
-
-              <li>
-                <Link href="/work-with-us" className="text-brand-muted hover:text-brand-primary">
-                  Work With Us
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h3 className="mb-4 font-medium text-brand-primary">Legal</h3>
             <ul className="space-y-2">
