@@ -8,13 +8,15 @@ function linePoints(values: number[]) {
 export default function ExtractionScreeningPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">Case study 02 · ex_a</p>
+      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">Case study 02 · industrial extraction asset A</p>
       <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-brand-primary md:text-5xl">
         A screening workflow should reveal the operating shape before it suggests a decision.
       </h1>
       <p className="mt-6 max-w-3xl text-lg leading-8 text-brand-muted">
-        `ex_a` provides a useful contrast to the coupled compressors: a pronounced weekday/daytime
-        profile, strong overnight reduction, and enough quality coverage to support exploratory review.
+        The dataset labels this asset `ex_a`. Its category is recorded as HVAC_AirExtraction, which
+        suggests an extraction or fan-driven system, but the exact equipment, service, meter boundary,
+        and control arrangement are not supplied. That uncertainty is part of the result—not something
+        to hide.
       </p>
 
       <section className="mt-12 grid gap-4 md:grid-cols-4">
@@ -33,7 +35,7 @@ export default function ExtractionScreeningPage() {
 
       <section className="mt-14 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
         <div>
-          <h2 className="text-2xl font-semibold text-brand-primary">Operating profile by local hour</h2>
+        <h2 className="text-2xl font-semibold text-brand-primary">Industrial extraction asset A: operating profile</h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-brand-muted">
             The shape is useful for deciding where an engineer should look first. It is not proof that
             the lower-load periods are waste, nor that the daytime load is fully required.
@@ -90,6 +92,17 @@ export default function ExtractionScreeningPage() {
           daytime schedule, service requirement, controls, and meter boundary first. It does not sell
           a saving that the data cannot yet support. The commercial value at this stage is faster,
           clearer, more auditable investigation.
+        </p>
+      </section>
+      <section className="mt-14 border-t border-neutral-200 pt-10">
+        <h2 className="text-2xl font-semibold text-brand-primary">Where this data came from</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-6 text-brand-muted">
+          This analysis uses the processed public release by Flynn, Murphy, Walsh and Riordan:
+          Zenodo v1.0, DOI <a className="font-semibold text-blue-700 hover:text-blue-900" href="https://doi.org/10.5281/zenodo.19180972" target="_blank" rel="noreferrer">10.5281/zenodo.19180972</a>,
+          with the associated Data paper DOI 10.3390/data11050101, released under CC BY 4.0. The
+          release contains processed Gold records and quality fields; the original high-frequency
+          sensor readings are not included. The analysis code and generated report are maintained
+          with the Opcient project.
         </p>
       </section>
     </main>
