@@ -13,11 +13,12 @@ controls, maintenance, and operations teams.
 
 Current approved homepage headline:
 
-> Same output. Less energy. Evidence first.
+> Same output. Less energy.
 
 This is the spine of the public positioning. Preserve it unless the user explicitly changes direction.
-It communicates the business objective, the operational constraint, and the evidence standard in one
-line.
+It communicates the business objective and operational constraint in the shortest possible form. The
+evidence standard remains mandatory in supporting copy and case studies, but should not clutter the
+headline.
 
 Supporting tone:
 
@@ -31,6 +32,7 @@ Supporting tone:
 Visual standard:
 
 - graphics should explain the decision meaning of a number, not decorate the page;
+- homepage case graphics should use varied visual forms when the business question differs;
 - colour is allowed and encouraged when it clarifies business meaning;
 - red may signal risk, missing data, overclaim danger, or "do not read this in isolation";
 - amber may signal review priority or a pattern that deserves investigation;
@@ -42,6 +44,15 @@ Visual standard:
   operation.
 - every visual must be understandable by a business reader who is not fresh in statistics or theory;
 - if a visual does not improve decision clarity, remove it.
+
+Preferred visual forms by current case:
+
+- compressor case: state-mix or operating-mode graphic, because the business question is control
+  intent and simultaneous-running review;
+- extraction case: time-of-day schedule/timeline graphic, because the business question is service
+  schedule alignment;
+- material-handling case: time-share versus energy-share graphic, because the business question is
+  standby readiness policy.
 
 Opcient provides:
 

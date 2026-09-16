@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-type StudyKey = "correlation" | "schedule" | "coverage";
+type StudyKey = "stateMix" | "schedule" | "timeEnergy";
 
 const caseStudies: Array<{
   href: string;
@@ -20,7 +20,7 @@ const caseStudies: Array<{
     insight: "Long A-only and B-only campaigns suggest managed duty, not random behaviour.",
     businessQuestion: "Understand the control intent before treating the pattern as an opportunity.",
     validation: "Pressure, airflow, states, controls, service constraints",
-    graphic: "correlation",
+    graphic: "stateMix",
   },
   {
     href: "/extraction-screening",
@@ -40,52 +40,39 @@ const caseStudies: Array<{
     insight: "Most time is standby; most energy sits in short high-activity windows.",
     businessQuestion: "Validate what readiness load protects before changing idle policy.",
     validation: "Machine role, production relationship, controls, maintenance context",
-    graphic: "coverage",
+    graphic: "timeEnergy",
   },
 ];
 
 function EvidenceGraphic({ type }: { type: StudyKey }) {
-  if (type === "correlation") {
+  if (type === "stateMix") {
     return (
       <div className="mt-5 border-t border-neutral-200 pt-5">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="text-3xl font-semibold tabular-nums text-brand-primary">-0.767</p>
-            <p className="mt-1 text-xs leading-5 text-brand-muted">approx. demand correlation</p>
+            <p className="text-3xl font-semibold tabular-nums text-brand-primary">92.19%</p>
+            <p className="mt-1 text-xs leading-5 text-brand-muted">single-compressor duty</p>
           </div>
           <div className="bg-emerald-50 px-3 py-2 text-right">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700">Likely managed duty</p>
-            <p className="mt-1 max-w-[10rem] text-xs leading-5 text-emerald-900">Opposite movement can be correct behaviour.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700">Control intent</p>
+            <p className="mt-1 max-w-[10rem] text-xs leading-5 text-emerald-900">Alternation may protect output.</p>
           </div>
         </div>
-        <div className="relative mt-6 h-3 overflow-visible bg-neutral-200">
-          <div className="absolute left-0 top-0 h-3 w-1/3 bg-emerald-600" />
-          <div className="absolute left-1/3 top-0 h-3 w-1/3 bg-slate-300" />
-          <div className="absolute right-0 top-0 h-3 w-1/3 bg-red-600" />
-          <div className="absolute top-[-0.55rem] h-6 w-1 border-l-4 border-neutral-950" style={{ left: "11.65%" }} />
+        <div className="mt-6 flex h-12 overflow-hidden border border-neutral-200 text-[0.65rem] font-semibold leading-none text-white">
+          <div className="flex items-center justify-center bg-emerald-700" style={{ width: "43.86%" }}>A-only</div>
+          <div className="flex items-center justify-center bg-emerald-500" style={{ width: "48.33%" }}>B-only</div>
+          <div className="flex items-center justify-center bg-red-600" style={{ width: "3.5%" }}>Both</div>
+          <div className="flex items-center justify-center bg-slate-500" style={{ width: "4.31%" }}>Low</div>
         </div>
-        <div className="mt-2 grid grid-cols-3 text-xs font-semibold">
-          <span className="text-emerald-700">-1 alternate duty</span>
-          <span className="text-center text-slate-600">0 no association</span>
-          <span className="text-right text-red-700">+1 run together</span>
+        <div className="mt-3 grid grid-cols-2 gap-2 text-xs md:grid-cols-4">
+          <p><span className="font-semibold text-emerald-700">43.86%</span><br />A-only</p>
+          <p><span className="font-semibold text-emerald-700">48.33%</span><br />B-only</p>
+          <p><span className="font-semibold text-red-700">1.97%</span><br />both above</p>
+          <p><span className="font-semibold text-slate-700">5.84%</span><br />both low</p>
         </div>
-        <p className="mt-3 text-xs leading-5 text-brand-muted">
-          For business review, the pattern may protect reliability. Validate controls before changing it.
+        <p className="mt-4 text-xs leading-5 text-brand-muted">
+          The business question is control mode, not just correlation.
         </p>
-        <div className="mt-5 grid grid-cols-3 gap-2 text-center text-xs">
-          <div className="bg-emerald-50 p-2">
-            <p className="font-semibold text-emerald-700">92.19%</p>
-            <p className="mt-1 text-emerald-900">single-compressor duty</p>
-          </div>
-          <div className="bg-red-50 p-2">
-            <p className="font-semibold text-red-700">1.97%</p>
-            <p className="mt-1 text-red-900">both above threshold</p>
-          </div>
-          <div className="bg-slate-100 p-2">
-            <p className="font-semibold text-slate-700">5.84%</p>
-            <p className="mt-1 text-slate-900">both near zero</p>
-          </div>
-        </div>
       </div>
     );
   }
@@ -103,18 +90,27 @@ function EvidenceGraphic({ type }: { type: StudyKey }) {
             <p className="mt-1 text-xs leading-5 text-brand-muted">full service intervals</p>
           </div>
         </div>
-        <div className="mt-5 grid gap-3">
-          <div>
-            <div className="flex justify-between text-xs font-semibold"><span className="text-emerald-700">Off or idle</span><span className="text-brand-primary">69.65%</span></div>
-            <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-emerald-600" style={{ width: "69.65%" }} /></div>
+        <div className="mt-6 border border-neutral-200 p-3">
+          <div className="grid grid-cols-12 gap-1">
+            {Array.from({ length: 24 }).map((_, hour) => {
+              const isReviewWindow = hour >= 8 && hour <= 15;
+              return (
+                <div key={hour} className="space-y-1">
+                  <div className={["h-10", isReviewWindow ? "bg-amber-500" : hour < 6 || hour > 18 ? "bg-emerald-600" : "bg-amber-200"].join(" ")} />
+                  {(hour === 0 || hour === 6 || hour === 12 || hour === 18) && (
+                    <p className="text-[0.6rem] text-brand-muted">{hour}</p>
+                  )}
+                </div>
+              );
+            })}
           </div>
-          <div>
-            <div className="flex justify-between text-xs font-semibold"><span className="text-amber-700">Full service</span><span className="text-brand-primary">29.24%</span></div>
-            <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-amber-500" style={{ width: "29.24%" }} /></div>
+          <div className="mt-3 flex flex-wrap gap-3 text-xs">
+            <span className="font-semibold text-emerald-700">Green: low/off service window</span>
+            <span className="font-semibold text-amber-700">Amber: review service schedule</span>
           </div>
         </div>
         <p className="mt-3 text-xs leading-5 text-brand-muted">
-          This looks like controlled service scheduling. The business question is whether the schedule matches need.
+          The business question is whether runtime matches required service.
         </p>
       </div>
     );
@@ -132,18 +128,29 @@ function EvidenceGraphic({ type }: { type: StudyKey }) {
           <p className="mt-1 text-xs leading-5 text-brand-muted">high-activity intervals</p>
         </div>
       </div>
-      <div className="mt-5 grid gap-3">
-        <div>
-          <div className="flex justify-between text-xs font-semibold"><span className="text-amber-700">Time in standby</span><span className="text-brand-primary">75.61%</span></div>
-          <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-amber-500" style={{ width: "75.61%" }} /></div>
+      <div className="mt-6 grid grid-cols-[4rem_1fr] gap-3 text-xs">
+        <div className="pt-2 text-brand-muted">Time</div>
+        <div className="flex h-8 overflow-hidden border border-neutral-200">
+          <div className="bg-amber-500" style={{ width: "75.61%" }} />
+          <div className="bg-red-600" style={{ width: "13.83%" }} />
+          <div className="bg-emerald-600" style={{ width: "5.61%" }} />
+          <div className="bg-slate-300" style={{ width: "4.95%" }} />
         </div>
-        <div>
-          <div className="flex justify-between text-xs font-semibold"><span className="text-red-700">Energy in high activity</span><span className="text-brand-primary">~70%</span></div>
-          <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-red-600" style={{ width: "69.64%" }} /></div>
+        <div className="pt-2 text-brand-muted">Energy</div>
+        <div className="flex h-8 overflow-hidden border border-neutral-200">
+          <div className="bg-amber-500" style={{ width: "22.52%" }} />
+          <div className="bg-red-600" style={{ width: "69.64%" }} />
+          <div className="bg-emerald-600" style={{ width: "0.06%" }} />
+          <div className="bg-slate-300" style={{ width: "7.78%" }} />
         </div>
       </div>
+      <div className="mt-3 flex flex-wrap gap-3 text-xs font-semibold">
+        <span className="text-amber-700">standby</span>
+        <span className="text-red-700">high activity</span>
+        <span className="text-emerald-700">off/idle</span>
+      </div>
       <p className="mt-3 text-xs leading-5 text-brand-muted">
-        The question is not just uptime. It is whether standby readiness is necessary outside work windows.
+        The business question is whether standby readiness is worth its policy cost.
       </p>
     </div>
   );
@@ -156,7 +163,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:px-6 md:py-18 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
             <h1 className="max-w-4xl text-4xl font-semibold tracking-tight md:text-6xl">
-              Same output. Less energy. Evidence first.
+              Same output. Less energy.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-300">
               Opcient builds software workflows for industrial teams that want lower energy operation
