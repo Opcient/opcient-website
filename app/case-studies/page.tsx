@@ -5,28 +5,28 @@ const studies = [
     href: "/industrial-screening",
     number: "01",
     title: "Compressed-air system: Compressor A + Compressor B",
-    perspective: "Coupled-system perspective",
-    observed: "Approximate demand correlation of -0.767 suggests the compressors should be read as one system.",
-    decision: "Prevents a weak conclusion where one machine appears to reduce demand while duty may simply move to another.",
-    limitation: "No pressure, airflow, state, control, production, or service data in the public release.",
+    perspective: "Control-intent hypothesis",
+    observed: "A-only and B-only states dominate the record, while both-above periods are only 1.97%.",
+    decision: "Treat the alternation as possible lead-lag control or resilience before proposing energy changes.",
+    limitation: "Validate pressure, airflow, compressor state, controls, production, and maintenance context.",
   },
   {
     href: "/extraction-screening",
     number: "02",
     title: "Industrial extraction asset A",
-    perspective: "Schedule perspective",
-    observed: "Daytime mean demand is 5.411 kW versus 0.219 kW overnight under the current screen.",
-    decision: "Focuses engineer review on operating schedule, controls, and whether service demand matches runtime.",
-    limitation: "The exact extraction service, equipment boundary, and control arrangement are not confirmed.",
+    perspective: "Schedule-alignment hypothesis",
+    observed: "About 69.65% of strict intervals are off-or-idle and 29.24% are full-service.",
+    decision: "Ask whether runtime matches production, safety, air-quality, or extraction service needs.",
+    limitation: "Validate the exact extraction service, control mode, permitted shutdown windows, and meter boundary.",
   },
   {
     href: "/material-handling-screening",
     number: "03",
     title: "Material-handling asset A",
-    perspective: "Context perspective",
-    observed: "Longer fact span with 35,104 expected quarter-hour intervals and 98.351% recorded-span coverage.",
-    decision: "Shows how longer history can support prioritisation without pretending it explains the machine function.",
-    limitation: "The public category is broad; useful output and process relationship need site validation.",
+    perspective: "Standby-readiness hypothesis",
+    observed: "About 75.61% of strict intervals are standby-base, while high activity is only 13.83%.",
+    decision: "Determine whether persistent readiness load is operationally necessary outside work windows.",
+    limitation: "Validate what the base load powers, restart penalty, safety constraints, and process dependency.",
   },
 ];
 
@@ -36,20 +36,20 @@ export default function CaseStudiesPage() {
       <section className="max-w-4xl">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">Case studies</p>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-brand-primary md:text-5xl">
-          Public evidence studies for industrial efficiency review.
+          Public-data studies that turn meter patterns into business hypotheses.
         </h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-brand-muted">
-          These studies are not sales claims. They demonstrate how Opcient turns equipment interval
-          data into reviewable business questions: what was observed, what it could mean, what it does
-          not prove, and what an engineer would need next.
+          Each study keeps the same discipline: identify the pattern, infer plausible operational
+          intent, expose the risk of misreading it, and define what a qualified team must validate
+          before action.
         </p>
       </section>
 
       <section className="mt-12 overflow-hidden border border-neutral-200">
         <div className="grid bg-slate-50 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-brand-muted md:grid-cols-[0.7fr_1.4fr_1.5fr_1.4fr]">
           <p>Study</p>
-          <p>Observed signal</p>
-          <p>Business decision supported</p>
+          <p>Pattern</p>
+          <p>Business hypothesis</p>
           <p>Validation boundary</p>
         </div>
         {studies.map((study) => (
@@ -74,15 +74,15 @@ export default function CaseStudiesPage() {
         <div>
           <h2 className="text-2xl font-semibold text-brand-primary">What these studies prove</h2>
           <p className="mt-4 text-sm leading-6 text-brand-muted">
-            They prove the method can screen public industrial data, preserve quality context, and
-            produce specific review questions. They do not prove site savings or validated faults.
+            They prove the method can convert public industrial data into operational hypotheses and
+            validation questions. They do not prove site savings, faults, or approved interventions.
           </p>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           {[
-            ["Screen", "Find candidate operating patterns."],
-            ["Explain", "Show numbers, source, denominator, and limits."],
-            ["Validate", "Let qualified professionals decide action."],
+            ["Pattern", "What changed in the equipment data?"],
+            ["Intent", "What might the pattern be protecting?"],
+            ["Decision", "What must be validated before action?"],
           ].map(([title, text]) => (
             <div key={title} className="border-l-4 border-blue-700 pl-4">
               <h3 className="font-semibold text-brand-primary">{title}</h3>

@@ -17,7 +17,7 @@ const caseStudies: Array<{
     label: "Study 01",
     type: "Coupled system",
     title: "Compressed-air system: Compressor A + Compressor B",
-    insight: "Opposite movement may be intentional lead-lag control, wear balancing, or resilience.",
+    insight: "Long A-only and B-only campaigns suggest managed duty, not random behaviour.",
     businessQuestion: "Understand the control intent before treating the pattern as an opportunity.",
     validation: "Pressure, airflow, states, controls, service constraints",
     graphic: "correlation",
@@ -27,18 +27,18 @@ const caseStudies: Array<{
     label: "Study 02",
     type: "Schedule shape",
     title: "Industrial extraction asset A",
-    insight: "The business signal is a large day/night demand gap that deserves schedule review.",
-    businessQuestion: "Check whether runtime matches required service before changing operation.",
+    insight: "The asset is mostly off or full-service, which points to schedule alignment.",
+    businessQuestion: "Confirm whether runtime matches production, safety, or extraction service.",
     validation: "Extraction requirement, controls, meter boundary, operating schedule",
     graphic: "schedule",
   },
   {
     href: "/material-handling-screening",
     label: "Study 03",
-    type: "Context test",
+    type: "Standby policy",
     title: "Material-handling asset A",
-    insight: "The data history is strong enough to screen, but not strong enough to explain the machine alone.",
-    businessQuestion: "Use the clean history to start review, then validate the machine role.",
+    insight: "Most time is standby; most energy sits in short high-activity windows.",
+    businessQuestion: "Validate what readiness load protects before changing idle policy.",
     validation: "Machine role, production relationship, controls, maintenance context",
     graphic: "coverage",
   },
@@ -72,6 +72,20 @@ function EvidenceGraphic({ type }: { type: StudyKey }) {
         <p className="mt-3 text-xs leading-5 text-brand-muted">
           For business review, the pattern may protect reliability. Validate controls before changing it.
         </p>
+        <div className="mt-5 grid grid-cols-3 gap-2 text-center text-xs">
+          <div className="bg-emerald-50 p-2">
+            <p className="font-semibold text-emerald-700">92.19%</p>
+            <p className="mt-1 text-emerald-900">single-compressor duty</p>
+          </div>
+          <div className="bg-red-50 p-2">
+            <p className="font-semibold text-red-700">1.97%</p>
+            <p className="mt-1 text-red-900">both above threshold</p>
+          </div>
+          <div className="bg-slate-100 p-2">
+            <p className="font-semibold text-slate-700">5.84%</p>
+            <p className="mt-1 text-slate-900">both near zero</p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -81,26 +95,26 @@ function EvidenceGraphic({ type }: { type: StudyKey }) {
       <div className="mt-5 border-t border-neutral-200 pt-5">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="text-3xl font-semibold tabular-nums text-brand-primary">5.411 kW</p>
-            <p className="mt-1 text-xs leading-5 text-brand-muted">daytime mean demand</p>
+            <p className="text-3xl font-semibold tabular-nums text-brand-primary">69.65%</p>
+            <p className="mt-1 text-xs leading-5 text-brand-muted">off or idle intervals</p>
           </div>
           <div className="text-right">
-            <p className="text-xl font-semibold tabular-nums text-brand-primary">0.219 kW</p>
-            <p className="mt-1 text-xs leading-5 text-brand-muted">overnight mean</p>
+            <p className="text-xl font-semibold tabular-nums text-brand-primary">29.24%</p>
+            <p className="mt-1 text-xs leading-5 text-brand-muted">full service intervals</p>
           </div>
         </div>
         <div className="mt-5 grid gap-3">
           <div>
-            <div className="flex justify-between text-xs font-semibold"><span className="text-amber-700">Review priority: daytime</span><span className="text-brand-primary">5.411 kW</span></div>
-            <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-amber-500" style={{ width: "100%" }} /></div>
+            <div className="flex justify-between text-xs font-semibold"><span className="text-emerald-700">Off or idle</span><span className="text-brand-primary">69.65%</span></div>
+            <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-emerald-600" style={{ width: "69.65%" }} /></div>
           </div>
           <div>
-            <div className="flex justify-between text-xs font-semibold"><span className="text-emerald-700">Low-load reference: overnight</span><span className="text-brand-primary">0.219 kW</span></div>
-            <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-emerald-600" style={{ width: "4.1%" }} /></div>
+            <div className="flex justify-between text-xs font-semibold"><span className="text-amber-700">Full service</span><span className="text-brand-primary">29.24%</span></div>
+            <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-amber-500" style={{ width: "29.24%" }} /></div>
           </div>
         </div>
         <p className="mt-3 text-xs leading-5 text-brand-muted">
-          The ratio is about 25x. That is a clear schedule question, not a confirmed saving.
+          This looks like controlled service scheduling. The business question is whether the schedule matches need.
         </p>
       </div>
     );
@@ -110,24 +124,26 @@ function EvidenceGraphic({ type }: { type: StudyKey }) {
     <div className="mt-5 border-t border-neutral-200 pt-5">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="text-3xl font-semibold tabular-nums text-brand-primary">98.351%</p>
-          <p className="mt-1 text-xs leading-5 text-brand-muted">recorded-span coverage</p>
+          <p className="text-3xl font-semibold tabular-nums text-brand-primary">75.61%</p>
+          <p className="mt-1 text-xs leading-5 text-brand-muted">standby-base intervals</p>
         </div>
         <div className="text-right">
-          <p className="text-xl font-semibold tabular-nums text-brand-primary">579</p>
-          <p className="mt-1 text-xs leading-5 text-brand-muted">missing intervals</p>
+          <p className="text-xl font-semibold tabular-nums text-brand-primary">13.83%</p>
+          <p className="mt-1 text-xs leading-5 text-brand-muted">high-activity intervals</p>
         </div>
       </div>
-      <div className="mt-5 flex h-3 overflow-hidden bg-neutral-200">
-        <div className="h-3 bg-emerald-600" style={{ width: "98.351%" }} />
-        <div className="h-3 bg-red-600" style={{ width: "1.649%" }} />
-      </div>
-      <div className="mt-2 flex justify-between text-xs font-semibold">
-        <span className="text-emerald-700">34,525 observed</span>
-        <span className="text-red-700">579 missing</span>
+      <div className="mt-5 grid gap-3">
+        <div>
+          <div className="flex justify-between text-xs font-semibold"><span className="text-amber-700">Time in standby</span><span className="text-brand-primary">75.61%</span></div>
+          <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-amber-500" style={{ width: "75.61%" }} /></div>
+        </div>
+        <div>
+          <div className="flex justify-between text-xs font-semibold"><span className="text-red-700">Energy in high activity</span><span className="text-brand-primary">~70%</span></div>
+          <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-red-600" style={{ width: "69.64%" }} /></div>
+        </div>
       </div>
       <p className="mt-3 text-xs leading-5 text-brand-muted">
-        Green means fit for screening. Red stays visible because missing data should not disappear.
+        The question is not just uptime. It is whether standby readiness is necessary outside work windows.
       </p>
     </div>
   );
@@ -159,11 +175,11 @@ export default function Home() {
           <div className="border border-neutral-700 bg-neutral-900 p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-300">Operating boundary</p>
             <p className="mt-3 text-2xl font-semibold leading-8 text-white">
-              We turn equipment data into validation-ready business questions.
+              We separate what may be intentional from what may be inefficient.
             </p>
             <p className="mt-4 text-sm leading-6 text-neutral-400">
-              The result is not a magic dashboard. It is a clear shortlist of patterns, limits, and
-              next checks an engineering team can act on responsibly.
+              The work is to protect output first, then challenge energy use with evidence that an
+              engineering team can validate.
             </p>
           </div>
         </div>
@@ -181,8 +197,8 @@ export default function Home() {
           <div className="grid gap-4 md:grid-cols-3">
             {[
               ["Control intent", "Two compressors may alternate to protect reliability, balance wear, or maintain service continuity."],
-              ["Schedule risk", "A time-of-day pattern can focus review before anyone labels consumption waste."],
-              ["Context risk", "A long history still needs equipment purpose, output, and meter boundary."],
+              ["Schedule alignment", "A scheduled asset may already be well controlled. Validate whether runtime matches required service."],
+              ["Standby readiness", "Small base loads over long periods become business questions when they preserve readiness."],
             ].map(([title, text]) => (
               <div key={title} className="border-l-4 border-blue-700 pl-4">
                 <h3 className="font-semibold text-brand-primary">{title}</h3>
@@ -199,7 +215,7 @@ export default function Home() {
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Case evidence</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-primary">
-                Three studies, three signals a business can understand quickly.
+                Three studies, three operating questions worth validating.
               </h2>
             </div>
             <Link href="/case-studies" className="text-sm font-semibold text-blue-700 hover:text-blue-900">
@@ -243,9 +259,9 @@ export default function Home() {
           </div>
           <div className="grid gap-4">
             {[
-              ["Decision support", "Candidate patterns are packaged with the evidence and limitation behind them."],
-              ["Reproducibility", "Source, quality rules, denominator choices, and assumptions stay visible."],
-              ["Post-change monitoring", "Approved interventions can be monitored without pretending correlation is proof."],
+              ["Intent before action", "We ask what the load may be protecting before proposing change."],
+              ["Evidence with limits", "Source, quality rules, denominators, and missing data stay visible."],
+              ["Validated change", "Only approved interventions move into monitoring or savings assessment."],
             ].map(([title, text]) => (
               <div key={title} className="border-l-4 border-blue-700 pl-5">
                 <h3 className="font-semibold text-brand-primary">{title}</h3>

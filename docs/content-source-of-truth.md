@@ -59,10 +59,19 @@ controls, maintenance, or safety professionals.
 ### Screen → Explain → Validate
 
 1. **Screen**: identify unusual operating patterns and preserve the full data denominator.
-2. **Explain**: show the time window, signals, comparisons, source, quality, assumptions, and limitations.
+2. **Explain**: show the time window, signals, comparisons, source, quality, assumptions, limitations,
+   and plausible operational intent.
 3. **Validate**: qualified engineers and operators decide what the pattern means and whether action is safe.
 
 This is an evidence and triage workflow. It is not autonomous fault diagnosis or autonomous plant control.
+
+Current matured interpretation standard:
+
+- do not stop at "what the meter did";
+- infer plausible operational intent without pretending it is confirmed;
+- identify the business risk of misreading the pattern;
+- state the exact validation questions that decide whether action is safe;
+- preserve output, reliability, safety, and service before discussing energy reduction.
 
 ## Approved language
 
@@ -135,6 +144,11 @@ Established observations:
 - common strict-quality operating-pattern analysis is appropriate for exploratory screening;
 - the negative relationship may reflect intentional lead-lag control, redundancy management,
   wear balancing, maintenance rotation, or fault-tolerant air supply strategy;
+- A-only and B-only states dominate the common strict record: `43.86%` and `48.33%` respectively;
+- both-compressors-above-threshold periods are relatively rare at `1.97%`, with the longest run
+  around `3.75` hours;
+- long single-compressor campaigns occur: longest A-only run around `527` hours and longest B-only
+  run around `486` hours;
 - alternating duty, simultaneous demand, schedules, transitions, and continuous runs are candidate
   patterns for review;
 - one compressor appearing near zero is not proof of shutdown, no service, or savings.
@@ -159,7 +173,14 @@ Established observations:
 - observed-span completeness: `98.662%`;
 - strict pass rate among recorded intervals: `99.863%`;
 - daytime/weekday demand is materially higher than overnight/weekend demand;
+- about `69.65%` of strict intervals are off-or-idle by a simple <=0.1 kW screen;
+- about `29.24%` of strict intervals are full-service by the current public-data screen;
+- full-service intervals are strongly weekday concentrated (`91.4%` weekday);
 - this schedule shape can prioritise engineering review but does not prove avoidable consumption.
+
+Business hypothesis: this asset looks more like a scheduled service than a continuously drifting load.
+The validation question is schedule alignment: whether runtime matches production, safety, air-quality,
+or process-extraction requirements.
 
 ### Study 03: material-handling asset
 
@@ -175,7 +196,15 @@ Established observations:
 - observed-span completeness: `98.351%`;
 - strict pass rate among recorded intervals: `99.887%`;
 - the longer history gives more temporal context;
+- about `75.61%` of strict intervals sit in a standby-base band under the current public-data screen;
+- high-activity intervals are only about `13.83%` of strict intervals but account for most strict
+  observed energy in the simple state split;
+- high-activity intervals are `99.6%` weekday;
+- long standby-base runs occur, including multiple runs around `90` to `112` hours;
 - lower overnight/weekend demand is an observation, not proof of waste or an intervention.
+
+Business hypothesis: the commercially meaningful question may be standby readiness policy, not
+machine failure. Validate what the persistent base load powers and whether a deeper idle state is safe.
 
 ## Cross-study hypothesis
 
@@ -188,7 +217,8 @@ The three studies support this working hypothesis:
 The studies provide three perspectives:
 
 - coupled-system perspective: assets can interact, and interaction may be intentional control design;
-- schedule perspective: time patterns can focus review;
+- schedule perspective: a clear schedule may indicate controlled service, not waste;
+- standby perspective: small base loads over long periods can become business questions;
 - context perspective: longer history does not replace equipment knowledge.
 
 Raw kW values must not be compared as if the assets have the same function, scale, production role, or

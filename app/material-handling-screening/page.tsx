@@ -1,66 +1,101 @@
 export default function MaterialHandlingScreeningPage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">Case study 03 · material-handling asset A</p>
-      <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-brand-primary md:text-5xl">
-        More history gives more context—but not automatic understanding.
-      </h1>
-      <p className="mt-6 max-w-3xl text-lg leading-8 text-brand-muted">
-        The source dataset labels this asset `mh_a` as `Automation_Handling`. That is a useful clue,
-        not a complete equipment description. We use the longer history to screen operating patterns
-        while keeping the missing machine context visible.
-      </p>
+    <main className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-20">
+      <section className="max-w-4xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">Case study 03 · material-handling asset A</p>
+        <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-brand-primary md:text-5xl">
+          Standby is not nothing. It is a readiness policy.
+        </h1>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-brand-muted">
+          Material-handling asset A shows a different business question: not whether the equipment is
+          active, but whether the persistent base load is necessary to keep the operation ready.
+        </p>
+      </section>
 
       <section className="mt-12 grid gap-4 md:grid-cols-4">
         {[
-          ["98.351%", "recorded-span coverage"],
-          ["99.887%", "strict pass rate of recorded intervals"],
-          ["2.930 kW", "daytime mean demand"],
-          ["0.469 kW", "overnight mean demand"],
+          ["75.61%", "standby-base intervals"],
+          ["13.83%", "high-activity intervals"],
+          ["99.6%", "high activity on weekdays"],
+          ["112.5 h", "long standby-base run"],
         ].map(([value, label]) => (
-          <div key={label} className="rounded-lg border border-neutral-200 p-5">
+          <div key={label} className="border border-neutral-200 p-5">
             <p className="text-2xl font-semibold tabular-nums text-brand-primary">{value}</p>
             <p className="mt-2 text-xs leading-5 text-brand-muted">{label}</p>
           </div>
         ))}
       </section>
 
-      <section className="mt-14 grid gap-10 lg:grid-cols-2">
+      <section className="mt-14 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <h2 className="text-2xl font-semibold text-brand-primary">What the screening says</h2>
-          <ul className="mt-5 space-y-4 text-sm leading-6 text-brand-muted">
-            <li><span className="font-semibold text-brand-primary">Expected span:</span> 35,104 quarter-hour intervals.</li>
-            <li><span className="font-semibold text-brand-primary">Observed:</span> 34,525 intervals, with 579 missing intervals retained in the denominator.</li>
-            <li><span className="font-semibold text-brand-primary">Quality:</span> 34,486 strict intervals, using all three phases and at least 891 reliable seconds per phase.</li>
-            <li><span className="font-semibold text-brand-primary">Shape:</span> weekday and daytime demand is higher than weekend and overnight demand.</li>
-          </ul>
+          <h2 className="text-2xl font-semibold text-brand-primary">Time share versus energy share</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-brand-muted">
+            The asset spends most intervals in a low standby-base band, while short high-activity
+            periods account for most observed energy. That split changes the business question from
+            whether it is on to what readiness the standby state buys.
+          </p>
+          <div className="mt-7 grid gap-5">
+            <div>
+              <div className="flex justify-between text-xs font-semibold">
+                <span className="text-amber-700">Time in standby-base</span>
+                <span className="text-brand-primary">75.61%</span>
+              </div>
+              <div className="mt-1 h-4 bg-neutral-200"><div className="h-4 bg-amber-500" style={{ width: "75.61%" }} /></div>
+            </div>
+            <div>
+              <div className="flex justify-between text-xs font-semibold">
+                <span className="text-red-700">Energy in high activity</span>
+                <span className="text-brand-primary">about 70%</span>
+              </div>
+              <div className="mt-1 h-4 bg-neutral-200"><div className="h-4 bg-red-600" style={{ width: "69.64%" }} /></div>
+            </div>
+            <div>
+              <div className="flex justify-between text-xs font-semibold">
+                <span className="text-emerald-700">Off or idle intervals</span>
+                <span className="text-brand-primary">5.61%</span>
+              </div>
+              <div className="mt-1 h-4 bg-neutral-200"><div className="h-4 bg-emerald-600" style={{ width: "5.61%" }} /></div>
+            </div>
+          </div>
         </div>
-        <div>
-          <h2 className="text-2xl font-semibold text-brand-primary">What the screening cannot say</h2>
-          <ul className="mt-5 space-y-4 text-sm leading-6 text-brand-muted">
-            <li>It does not identify the machine’s exact function or useful output.</li>
-            <li>It does not establish that low-load periods are waste or that high-load periods are necessary.</li>
-            <li>It does not establish a fault, intervention, annual saving, or return on investment.</li>
-          </ul>
-        </div>
-      </section>
 
-      <section className="mt-14 rounded-lg bg-slate-50 p-8">
-        <h2 className="text-2xl font-semibold text-brand-primary">Business relevance</h2>
-        <p className="mt-4 max-w-4xl text-sm leading-6 text-brand-muted">
-          For a business, the immediate value is prioritisation: the screening identifies a machine
-          history worth discussing with operations and engineering, and it makes the information gap
-          explicit before anyone spends money on an intervention or promises a saving.
-        </p>
+        <div className="border-l-4 border-blue-700 pl-6">
+          <h2 className="text-2xl font-semibold text-brand-primary">Opcient hypothesis</h2>
+          <p className="mt-4 text-sm leading-6 text-brand-muted">
+            The persistent base load may power controls, drives, sensors, hydraulics, safety systems,
+            network hardware, or another readiness layer. It may be necessary. It may also be a policy
+            choice worth reviewing.
+          </p>
+          <p className="mt-5 text-sm font-semibold leading-6 text-brand-primary">
+            The commercial question is whether deeper idle is safe, practical, and worth the restart
+            or reliability tradeoff.
+          </p>
+        </div>
       </section>
 
       <section className="mt-14 border-t border-neutral-200 pt-10">
-        <h2 className="text-2xl font-semibold text-brand-primary">Source and validation</h2>
+        <h2 className="text-2xl font-semibold text-brand-primary">Opcient questions for the business</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          {[
+            "What does the roughly 0.39-0.50 kW standby band power?",
+            "Is standby required for safety, fast restart, controls health, or production readiness?",
+            "Can the asset enter a deeper idle mode over weekends or long non-production windows?",
+            "What is the restart penalty in time, reliability, quality, or operator intervention?",
+          ].map((question) => (
+            <p key={question} className="border-l-4 border-neutral-300 pl-4 text-sm leading-6 text-brand-muted">
+              {question}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-14 border-t border-neutral-200 pt-10">
+        <h2 className="text-2xl font-semibold text-brand-primary">Source and limits</h2>
         <p className="mt-4 max-w-4xl text-sm leading-6 text-brand-muted">
           The analysis uses the processed public release by Flynn, Murphy, Walsh and Riordan:
           <a className="ml-1 font-semibold text-blue-700 hover:text-blue-900" href="https://doi.org/10.5281/zenodo.19180972" target="_blank" rel="noreferrer">Zenodo v1.0, DOI 10.5281/zenodo.19180972</a>,
-          associated Data paper DOI 10.3390/data11050101, CC BY 4.0. Site validation would require the
-          machine function, process relationship, controls, schedule, meter boundary, and maintenance context.
+          associated Data paper DOI 10.3390/data11050101, CC BY 4.0. The public data does not confirm
+          machine function, throughput, restart constraints, safety requirements, fault, waste, or savings.
         </p>
       </section>
     </main>

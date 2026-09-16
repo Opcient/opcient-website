@@ -2,22 +2,22 @@ const steps = [
   {
     title: "Screen",
     outcome: "Candidate operating patterns",
-    text: "Structure interval data, preserve quality fields, keep missing windows in the denominator, and identify patterns worth review.",
+    text: "Structure interval data, preserve quality fields, keep missing windows visible, and identify patterns that deserve review.",
   },
   {
     title: "Explain",
-    outcome: "Reviewable evidence",
-    text: "Show timestamps, comparisons, source data, assumptions, and limits so the pattern can be challenged by people who know the plant.",
+    outcome: "Operational hypothesis",
+    text: "Show what the pattern could mean operationally: control intent, schedule alignment, standby readiness, or data gap.",
   },
   {
     title: "Validate",
     outcome: "Engineering decision",
-    text: "Qualified engineers and operators compare the evidence with pressure, flow, controls, production, maintenance, and service constraints.",
+    text: "Qualified engineers and operators compare the hypothesis with controls, output, pressure, flow, safety, and service constraints.",
   },
   {
     title: "Monitor",
     outcome: "Post-change visibility",
-    text: "If a change is approved, track the relevant operating behaviour afterwards without claiming savings the evidence cannot support.",
+    text: "If a change is approved, track output-preserving behaviour afterwards before translating the result into a savings claim.",
   },
 ];
 
@@ -31,15 +31,15 @@ export default function HowItWorksPage() {
             Screen {"->"} Explain {"->"} Validate.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-brand-muted">
-            Opcient is an evidence workflow around industrial expertise. The software narrows the
-            search; the engineering team keeps responsibility for meaning, safety, output, and action.
+            Opcient screens equipment data, forms a plausible operating hypothesis, and defines the
+            validation needed before changing anything that may protect output.
           </p>
         </div>
         <div className="border border-neutral-200 bg-slate-50 p-6">
           <p className="text-sm font-semibold text-brand-primary">Operating rule</p>
           <p className="mt-3 text-sm leading-6 text-brand-muted">
-            A useful finding can be a validated opportunity, a rejected hypothesis, or a clear data
-            gap. All three save time compared with acting on unsupported dashboards.
+            A useful result can be a candidate opportunity, a rejected hypothesis, or proof that a
+            pattern is intentional. All three are better than acting on an unsupported dashboard.
           </p>
         </div>
       </section>
@@ -59,8 +59,8 @@ export default function HowItWorksPage() {
         <div>
           <h2 className="text-2xl font-semibold text-brand-primary">What the workflow is built to prevent</h2>
           <ul className="mt-5 space-y-3 text-sm leading-6 text-brand-muted">
-            <li>Ranking high energy users without knowing whether the meter boundary is comparable.</li>
-            <li>Calling an operating pattern waste before checking production, service, controls, or safety.</li>
+            <li>Changing a control pattern that exists for reliability, safety, or service continuity.</li>
+            <li>Calling scheduled operation waste before checking production, service, controls, or safety.</li>
             <li>Dropping missing intervals from the denominator and overstating data confidence.</li>
             <li>Turning exploratory correlations into annual savings or payback claims.</li>
           </ul>
@@ -68,10 +68,10 @@ export default function HowItWorksPage() {
         <div>
           <h2 className="text-2xl font-semibold text-brand-primary">What a partner receives</h2>
           <ul className="mt-5 space-y-3 text-sm leading-6 text-brand-muted">
-            <li>Clean data acceptance notes and reproducible analysis logic.</li>
-            <li>Evidence summaries that separate observation, hypothesis, limitation, and next validation.</li>
-            <li>Business-facing outputs that engineering, operations, and management can discuss together.</li>
-            <li>A base for dashboards or monitoring once the engineering decision is made.</li>
+            <li>Data acceptance notes with missing intervals and quality rules explicit.</li>
+            <li>Operational hypotheses tied to evidence, not generic anomaly labels.</li>
+            <li>Validation questions for engineering, operations, maintenance, and business owners.</li>
+            <li>Monitoring logic only after an approved output-preserving change.</li>
           </ul>
         </div>
       </section>
