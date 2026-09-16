@@ -17,8 +17,8 @@ const caseStudies: Array<{
     label: "Study 01",
     type: "Coupled system",
     title: "Compressed-air system: Compressor A + Compressor B",
-    insight: "A drop on one compressor is not the money story if the load moved to the other machine.",
-    businessQuestion: "Do not price a saving until the system boundary is validated.",
+    insight: "Opposite movement may be intentional lead-lag control, wear balancing, or resilience.",
+    businessQuestion: "Understand the control intent before treating the pattern as an opportunity.",
     validation: "Pressure, airflow, states, controls, service constraints",
     graphic: "correlation",
   },
@@ -53,24 +53,24 @@ function EvidenceGraphic({ type }: { type: StudyKey }) {
             <p className="text-3xl font-semibold tabular-nums text-brand-primary">-0.767</p>
             <p className="mt-1 text-xs leading-5 text-brand-muted">approx. demand correlation</p>
           </div>
-          <div className="bg-red-50 px-3 py-2 text-right">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-red-700">Read as system</p>
-            <p className="mt-1 max-w-[10rem] text-xs leading-5 text-red-900">Opposite movement can mean duty transfer.</p>
+          <div className="bg-emerald-50 px-3 py-2 text-right">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700">Likely managed duty</p>
+            <p className="mt-1 max-w-[10rem] text-xs leading-5 text-emerald-900">Opposite movement can be correct behaviour.</p>
           </div>
         </div>
         <div className="relative mt-6 h-3 overflow-visible bg-neutral-200">
-          <div className="absolute left-0 top-0 h-3 w-1/3 bg-red-600" />
+          <div className="absolute left-0 top-0 h-3 w-1/3 bg-emerald-600" />
           <div className="absolute left-1/3 top-0 h-3 w-1/3 bg-slate-300" />
-          <div className="absolute right-0 top-0 h-3 w-1/3 bg-emerald-600" />
+          <div className="absolute right-0 top-0 h-3 w-1/3 bg-red-600" />
           <div className="absolute top-[-0.55rem] h-6 w-1 border-l-4 border-neutral-950" style={{ left: "11.65%" }} />
         </div>
         <div className="mt-2 grid grid-cols-3 text-xs font-semibold">
-          <span className="text-red-700">-1 opposite</span>
+          <span className="text-emerald-700">-1 alternate duty</span>
           <span className="text-center text-slate-600">0 no association</span>
-          <span className="text-right text-emerald-700">+1 together</span>
+          <span className="text-right text-red-700">+1 run together</span>
         </div>
         <p className="mt-3 text-xs leading-5 text-brand-muted">
-          For business review, this is a warning against reading one compressor meter in isolation.
+          For business review, the pattern may protect reliability. Validate controls before changing it.
         </p>
       </div>
     );
@@ -180,7 +180,7 @@ export default function Home() {
 
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              ["System risk", "Two assets can trade duty, so a local drop is not automatically a system improvement."],
+              ["Control intent", "Two compressors may alternate to protect reliability, balance wear, or maintain service continuity."],
               ["Schedule risk", "A time-of-day pattern can focus review before anyone labels consumption waste."],
               ["Context risk", "A long history still needs equipment purpose, output, and meter boundary."],
             ].map(([title, text]) => (

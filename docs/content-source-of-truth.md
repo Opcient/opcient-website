@@ -35,6 +35,11 @@ Visual standard:
 - red may signal risk, missing data, overclaim danger, or "do not read this in isolation";
 - amber may signal review priority or a pattern that deserves investigation;
 - green may signal usable evidence, lower reference load, or acceptable coverage;
+- colours must follow the operational hypothesis, not generic chart convention. For the compressor
+  pair, negative correlation/opposite movement may be shown as green when framed as possible
+  lead-lag duty management; positive/together movement may be shown as red when it raises a
+  simultaneous-demand or capacity question. This is not a claim of confirmed healthy or faulty
+  operation.
 - every visual must be understandable by a business reader who is not fresh in statistics or theory;
 - if a visual does not improve decision clarity, remove it.
 
@@ -128,12 +133,17 @@ Established observations:
 
 - approximate demand correlation: `-0.767`;
 - common strict-quality operating-pattern analysis is appropriate for exploratory screening;
+- the negative relationship may reflect intentional lead-lag control, redundancy management,
+  wear balancing, maintenance rotation, or fault-tolerant air supply strategy;
 - alternating duty, simultaneous demand, schedules, transitions, and continuous runs are candidate
   patterns for review;
 - one compressor appearing near zero is not proof of shutdown, no service, or savings.
 
 Required validation includes pressure, airflow, compressor states, controls, production schedule,
 receiver/network arrangement, maintenance records, and service constraints.
+
+Business hypothesis: before proposing energy changes, understand whether the observed alternation
+protects production reliability. Do not treat the pattern as inefficiency by default.
 
 ### Study 02: industrial extraction asset
 
@@ -177,7 +187,7 @@ The three studies support this working hypothesis:
 
 The studies provide three perspectives:
 
-- coupled-system perspective: assets can interact;
+- coupled-system perspective: assets can interact, and interaction may be intentional control design;
 - schedule perspective: time patterns can focus review;
 - context perspective: longer history does not replace equipment knowledge.
 
