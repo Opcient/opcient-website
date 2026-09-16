@@ -9,6 +9,35 @@ first, then update the affected pages.
 Opcient is a software and industrial-data workflow business. It partners with industrial engineering,
 controls, maintenance, and operations teams.
 
+### Locked public direction
+
+Current approved homepage headline:
+
+> Same output. Less energy. Evidence first.
+
+This is the spine of the public positioning. Preserve it unless the user explicitly changes direction.
+It communicates the business objective, the operational constraint, and the evidence standard in one
+line.
+
+Supporting tone:
+
+- business-first and direct;
+- no filler language or clever wording that does not clarify the offer;
+- strong visuals where numbers matter;
+- honest limits and validation requirements;
+- no fake savings claims, fake ROI, or unsupported fault claims;
+- software as the evidence/workflow partner, not the industrial engineer.
+
+Visual standard:
+
+- graphics should explain the decision meaning of a number, not decorate the page;
+- colour is allowed and encouraged when it clarifies business meaning;
+- red may signal risk, missing data, overclaim danger, or "do not read this in isolation";
+- amber may signal review priority or a pattern that deserves investigation;
+- green may signal usable evidence, lower reference load, or acceptable coverage;
+- every visual must be understandable by a business reader who is not fresh in statistics or theory;
+- if a visual does not improve decision clarity, remove it.
+
 Opcient provides:
 
 - software engineering and data workflows;
@@ -143,7 +172,8 @@ Established observations:
 The three studies support this working hypothesis:
 
 > The commercial value is not merely finding the biggest energy users. It is helping an engineering
-> team identify which operating pattern is worth validating first—and showing why.
+> team reduce energy pursuit risk while preserving output: what changed, what it could mean, what it
+> does not prove, and what must be validated before action.
 
 The studies provide three perspectives:
 
