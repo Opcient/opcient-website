@@ -17,8 +17,8 @@ const caseStudies: Array<{
     label: "Study 01",
     type: "Coupled system",
     title: "Compressed-air system: Compressor A + Compressor B",
-    insight: "Compressor A and B move in opposite directions often enough that one meter cannot be read alone.",
-    businessQuestion: "Is duty transferring between machines before anyone claims an efficiency win?",
+    insight: "A drop on one compressor is not the money story if the load moved to the other machine.",
+    businessQuestion: "Do not price a saving until the system boundary is validated.",
     validation: "Pressure, airflow, states, controls, service constraints",
     graphic: "correlation",
   },
@@ -27,8 +27,8 @@ const caseStudies: Array<{
     label: "Study 02",
     type: "Schedule shape",
     title: "Industrial extraction asset A",
-    insight: "The strongest signal is when the asset runs, not a standalone claim of waste.",
-    businessQuestion: "Is the operating schedule aligned with the service the asset provides?",
+    insight: "The business signal is a large day/night demand gap that deserves schedule review.",
+    businessQuestion: "Check whether runtime matches required service before changing operation.",
     validation: "Extraction requirement, controls, meter boundary, operating schedule",
     graphic: "schedule",
   },
@@ -37,8 +37,8 @@ const caseStudies: Array<{
     label: "Study 03",
     type: "Context test",
     title: "Material-handling asset A",
-    insight: "More history improves the screen, but it does not replace machine knowledge.",
-    businessQuestion: "Does a longer history change the priority for engineer review?",
+    insight: "The data history is strong enough to screen, but not strong enough to explain the machine alone.",
+    businessQuestion: "Use the clean history to start review, then validate the machine role.",
     validation: "Machine role, production relationship, controls, maintenance context",
     graphic: "coverage",
   },
@@ -48,24 +48,30 @@ function EvidenceGraphic({ type }: { type: StudyKey }) {
   if (type === "correlation") {
     return (
       <div className="mt-5 border-t border-neutral-200 pt-5">
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-3xl font-semibold tabular-nums text-brand-primary">-0.767</p>
             <p className="mt-1 text-xs leading-5 text-brand-muted">approx. demand correlation</p>
           </div>
-          <p className="max-w-[9rem] text-right text-xs leading-5 text-brand-muted">
-            Close to opposite movement, not proof of control logic.
-          </p>
+          <div className="bg-red-50 px-3 py-2 text-right">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-red-700">Read as system</p>
+            <p className="mt-1 max-w-[10rem] text-xs leading-5 text-red-900">Opposite movement can mean duty transfer.</p>
+          </div>
         </div>
-        <div className="relative mt-6 h-2 bg-neutral-200">
-          <div className="absolute left-0 top-0 h-2 w-1/2 bg-slate-700" />
-          <div className="absolute top-[-0.45rem] h-5 w-1 border-l-2 border-blue-700" style={{ left: "11.65%" }} />
+        <div className="relative mt-6 h-3 overflow-visible bg-neutral-200">
+          <div className="absolute left-0 top-0 h-3 w-1/3 bg-red-600" />
+          <div className="absolute left-1/3 top-0 h-3 w-1/3 bg-slate-300" />
+          <div className="absolute right-0 top-0 h-3 w-1/3 bg-emerald-600" />
+          <div className="absolute top-[-0.55rem] h-6 w-1 border-l-4 border-neutral-950" style={{ left: "11.65%" }} />
         </div>
-        <div className="mt-2 grid grid-cols-3 text-xs text-brand-muted">
-          <span>-1 opposite</span>
-          <span className="text-center">0 no linear association</span>
-          <span className="text-right">+1 move together</span>
+        <div className="mt-2 grid grid-cols-3 text-xs font-semibold">
+          <span className="text-red-700">-1 opposite</span>
+          <span className="text-center text-slate-600">0 no association</span>
+          <span className="text-right text-emerald-700">+1 together</span>
         </div>
+        <p className="mt-3 text-xs leading-5 text-brand-muted">
+          For business review, this is a warning against reading one compressor meter in isolation.
+        </p>
       </div>
     );
   }
@@ -83,18 +89,18 @@ function EvidenceGraphic({ type }: { type: StudyKey }) {
             <p className="mt-1 text-xs leading-5 text-brand-muted">overnight mean</p>
           </div>
         </div>
-        <div className="mt-5 grid gap-2">
+        <div className="mt-5 grid gap-3">
           <div>
-            <div className="flex justify-between text-xs text-brand-muted"><span>Daytime</span><span>5.411 kW</span></div>
-            <div className="mt-1 h-2 bg-neutral-200"><div className="h-2 bg-blue-700" style={{ width: "100%" }} /></div>
+            <div className="flex justify-between text-xs font-semibold"><span className="text-amber-700">Review priority: daytime</span><span className="text-brand-primary">5.411 kW</span></div>
+            <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-amber-500" style={{ width: "100%" }} /></div>
           </div>
           <div>
-            <div className="flex justify-between text-xs text-brand-muted"><span>Overnight</span><span>0.219 kW</span></div>
-            <div className="mt-1 h-2 bg-neutral-200"><div className="h-2 bg-slate-700" style={{ width: "4.1%" }} /></div>
+            <div className="flex justify-between text-xs font-semibold"><span className="text-emerald-700">Low-load reference: overnight</span><span className="text-brand-primary">0.219 kW</span></div>
+            <div className="mt-1 h-3 bg-neutral-200"><div className="h-3 bg-emerald-600" style={{ width: "4.1%" }} /></div>
           </div>
         </div>
         <p className="mt-3 text-xs leading-5 text-brand-muted">
-          The gap prioritises schedule review. It does not prove the daytime load is avoidable.
+          The ratio is about 25x. That is a clear schedule question, not a confirmed saving.
         </p>
       </div>
     );
@@ -112,15 +118,16 @@ function EvidenceGraphic({ type }: { type: StudyKey }) {
           <p className="mt-1 text-xs leading-5 text-brand-muted">missing intervals</p>
         </div>
       </div>
-      <div className="mt-5 h-3 bg-neutral-200">
-        <div className="h-3 bg-blue-700" style={{ width: "98.351%" }} />
+      <div className="mt-5 flex h-3 overflow-hidden bg-neutral-200">
+        <div className="h-3 bg-emerald-600" style={{ width: "98.351%" }} />
+        <div className="h-3 bg-red-600" style={{ width: "1.649%" }} />
       </div>
-      <div className="mt-2 flex justify-between text-xs text-brand-muted">
-        <span>34,525 observed</span>
-        <span>35,104 expected</span>
+      <div className="mt-2 flex justify-between text-xs font-semibold">
+        <span className="text-emerald-700">34,525 observed</span>
+        <span className="text-red-700">579 missing</span>
       </div>
       <p className="mt-3 text-xs leading-5 text-brand-muted">
-        Strong coverage supports screening, but machine function still controls interpretation.
+        Green means fit for screening. Red stays visible because missing data should not disappear.
       </p>
     </div>
   );
@@ -133,11 +140,11 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:px-6 md:py-18 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
             <h1 className="max-w-4xl text-4xl font-semibold tracking-tight md:text-6xl">
-              Find the operating pattern worth validating first.
+              Same output. Less energy. Evidence first.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-300">
-              Opcient builds software workflows that screen industrial operating data, explain the
-              evidence, and route candidate efficiency opportunities to qualified engineers.
+              Opcient builds software workflows for industrial teams that want lower energy operation
+              without guessing, overclaiming, or risking the production result.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link href="/case-studies" className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-neutral-950 hover:bg-blue-100">
@@ -152,11 +159,11 @@ export default function Home() {
           <div className="border border-neutral-700 bg-neutral-900 p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-300">Operating boundary</p>
             <p className="mt-3 text-2xl font-semibold leading-8 text-white">
-              Evidence first. Engineering decision second. Savings claims last.
+              We turn equipment data into validation-ready business questions.
             </p>
             <p className="mt-4 text-sm leading-6 text-neutral-400">
-              The business value is disciplined prioritisation: showing what to investigate, what the
-              data does not prove, and what validation is needed before action.
+              The result is not a magic dashboard. It is a clear shortlist of patterns, limits, and
+              next checks an engineering team can act on responsibly.
             </p>
           </div>
         </div>
