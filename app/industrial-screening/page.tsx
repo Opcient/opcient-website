@@ -24,6 +24,26 @@ export default function IndustrialScreeningPage() {
         ))}
       </div>
 
+      <section className="mt-14 rounded-lg bg-slate-50 p-8">
+        <h2 className="text-2xl font-semibold text-brand-primary">Why these two compressors must be read together</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-6 text-brand-muted">
+          A compressor meter describes electrical demand at one boundary. It does not, by itself,
+          describe compressed-air production, pressure stability, system demand, or useful output. We
+          therefore treat Compressor A and Compressor B as one coupled study system because duty can
+          transfer between them.
+        </p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div><p className="text-xl font-semibold tabular-nums text-brand-primary">−0.767</p><p className="mt-1 text-xs leading-5 text-brand-muted">approximate demand correlation between A and B</p></div>
+          <div><p className="text-xl font-semibold tabular-nums text-brand-primary">21,451</p><p className="mt-1 text-xs leading-5 text-brand-muted">expected quarter-hour intervals per compressor span</p></div>
+          <div><p className="text-xl font-semibold tabular-nums text-brand-primary">76.061%</p><p className="mt-1 text-xs leading-5 text-brand-muted">provisional common strict pass rate under the 99% phase screen</p></div>
+        </div>
+        <p className="mt-6 text-xs leading-5 text-brand-muted">
+          The 99% phase screen is a provisional analysis threshold, not an industry standard or asset
+          certification. The correlation indicates an operating relationship, not proof of control logic
+          or a saving.
+        </p>
+      </section>
+
       <section className="mt-14 border-t border-neutral-200 pt-10">
         <h2 className="text-2xl font-semibold text-brand-primary">What an engineer would review</h2>
         <ul className="mt-5 list-disc space-y-3 pl-5 text-sm leading-6 text-brand-muted">

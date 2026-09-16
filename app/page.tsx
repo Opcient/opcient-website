@@ -55,6 +55,32 @@ export default function Home() {
       </section>
 
       <section className="mt-20 border-t border-neutral-200 pt-12">
+        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Cross-study insight</p>
+        <h2 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-brand-primary">The same number means different things at different operational boundaries.</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-6 text-brand-muted">
+          The three studies give Opcient a practical starting hypothesis: useful efficiency screening
+          must combine pattern detection with asset context, system relationships, and data quality.
+          A dashboard that only ranks high-consuming assets would miss the business question.
+        </p>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {[
+            ["System perspective", "Compressor A and B show why one asset’s apparent shutdown is not automatically a system saving. Duty can transfer between assets."],
+            ["Schedule perspective", "The extraction asset shows how weekday, daytime, overnight, and weekend shapes can prioritise review without labelling low-load periods waste."],
+            ["Context perspective", "The material-handling asset shows that longer history improves context, but an unclear machine function still limits interpretation."],
+          ].map(([title, text]) => (
+            <div key={title} className="border-l-2 border-blue-700 pl-5">
+              <h3 className="text-lg font-semibold text-brand-primary">{title}</h3>
+              <p className="mt-3 text-sm leading-6 text-brand-muted">{text}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 max-w-4xl text-sm font-semibold leading-6 text-brand-primary">
+          Working hypothesis: the commercial value is not merely finding “big users”; it is helping an
+          engineering team identify which operating pattern is worth validating first—and showing why.
+        </p>
+      </section>
+
+      <section className="mt-20 border-t border-neutral-200 pt-12">
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">The Opcient evidence workflow</p>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-primary">Screen → Explain → Validate</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
