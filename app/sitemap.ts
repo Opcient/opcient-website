@@ -12,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     { url: `${baseUrl}/extraction-screening`, priority: 0.8 },
 
+    { url: `${baseUrl}/material-handling-screening`, priority: 0.7 },
+
     { url: `${baseUrl}/about`, priority: 0.6 },
 
     { url: `${baseUrl}/work-with-us`, priority: 0.4 },

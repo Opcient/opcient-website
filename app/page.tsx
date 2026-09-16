@@ -25,19 +25,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-20 grid gap-6 md:grid-cols-3">
-        {[
-          ["Screen", "Find unusual equipment and energy patterns worth an engineer’s attention."],
-          ["Explain", "Show the time, signals, comparisons, and data-quality context behind each finding."],
-          ["Validate", "Keep qualified engineers in the decision loop before calling something a fault, waste, or saving."],
-        ].map(([title, text]) => (
-          <div key={title} className="rounded-lg border border-neutral-200 p-6">
-            <h2 className="text-lg font-semibold text-brand-primary">{title}</h2>
-            <p className="mt-3 text-sm leading-6 text-brand-muted">{text}</p>
-          </div>
-        ))}
-      </section>
-
       <section className="mt-20">
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Case studies</p>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-primary">Evidence that helps a business decide where to look next.</h2>
@@ -45,7 +32,7 @@ export default function Home() {
           Each study starts with public industrial data and ends with a clearer engineering question—not
           an invented saving. The same workflow can be applied to different assets and operating systems.
         </p>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           <Link href="/industrial-screening" className="group rounded-lg border border-neutral-200 p-7 hover:border-blue-700">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-700">Study 01 · coupled system</p>
             <h3 className="mt-3 text-xl font-semibold text-brand-primary">Compressed-air system: Compressor A + Compressor B</h3>
@@ -56,6 +43,12 @@ export default function Home() {
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-700">Study 02 · single asset</p>
             <h3 className="mt-3 text-xl font-semibold text-brand-primary">Industrial extraction asset A <span className="font-normal text-brand-muted">(`ex_a`)</span></h3>
             <p className="mt-3 text-sm leading-6 text-brand-muted">Shows how a clear weekday/daytime operating shape can focus review while the asset’s exact function remains to be confirmed.</p>
+            <span className="mt-5 inline-block text-sm font-semibold text-blue-700 group-hover:text-blue-900">View study →</span>
+          </Link>
+          <Link href="/material-handling-screening" className="group rounded-lg border border-neutral-200 p-7 hover:border-blue-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-700">Study 03 · longer history</p>
+            <h3 className="mt-3 text-xl font-semibold text-brand-primary">Material-handling asset A <span className="font-normal text-brand-muted">(`mh_a`)</span></h3>
+            <p className="mt-3 text-sm leading-6 text-brand-muted">Shows how longer history can improve context while the machine’s actual role still needs site confirmation.</p>
             <span className="mt-5 inline-block text-sm font-semibold text-blue-700 group-hover:text-blue-900">View study →</span>
           </Link>
         </div>
